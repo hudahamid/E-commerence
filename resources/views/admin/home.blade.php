@@ -17,4 +17,4 @@
     @include('admin.script')
     <!-- End custom js for this page -->
   </body>
-</html>href/
+</html>
