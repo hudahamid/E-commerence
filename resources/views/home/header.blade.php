@@ -28,12 +28,24 @@
                         </li>
                         <!-- mn  -->
                         {{-- @if (Route::has('login')) --}}
+                        @auth
+                        <li class="nav-item">
+                           <a class="btn btn-primary" href="{{ route('login') }}">logout</a>
+                        
+    
+                          
+
+                        </li>
+                        @else
+
                         <li class="nav-item">
                            <a class="btn btn-primary" href="{{ route('login') }}">login</a>
                         </li>
+
                         <li class="nav-item">
                            <a class="btn btn-success" href="{{ route('register') }}">Register</a>
                         </li>
+                        @endauth
                         {{-- @endif --}}
 
                         <form class="form-inline">
