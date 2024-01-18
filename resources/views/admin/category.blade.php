@@ -14,6 +14,13 @@
         .input_color {
             color: black;
         }
+        .center{
+          margin:auto;
+          width:50%;
+          text-align:30px;
+          border:3px solid white;
+          margin-top:20px;
+        }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -56,8 +63,22 @@
                         <input type="submit" class="btn btn-primary" name="submit" value="Add Category">
                     </form>
                 </div>
+                <table class="center">
+            <tr>
+                <td>Category Name</td>
+                <td>Action</td>
+            </tr>
+            @foreach($data as $data)
+            <tr>
+                <td>{{$data->category_name}}</td>
+                <td><a onclick="return confirm('Are you sure to delete this ')" class="btn btn-danger" href="{{url('delete_category',$data->id)}}">Delete</a></td>
+            </tr>
+            @endforeach
+        </table>
             </div>
+            
         </div>
+        
 
         <!-- Container-Scroller -->
         <!-- Include scripts -->
