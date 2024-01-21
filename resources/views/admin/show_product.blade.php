@@ -2,7 +2,29 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    
+    <style>
+      .center{
+        border:solid 2px white;
+        padding:50px;
+        margin:auto;
+        text-align:center;
+        padding-top:10%;
+        margin-top:2%;
+        width:87%;
+      }
+      .img{
+        width:150px;
+        height: 100px;
+      }
+      .head{
+        background:#0CC446;
+        
+      }
+      .subhead{
+        padding: 2%;
+        margin-bottom:3%;
+      }
+    </style>
     @include('admin.css')
     
     <!-- Bootstrap CSS -->
@@ -18,29 +40,33 @@
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
-                <table>
+             
+              <center>
+              <h2>All Products</h2>
+                <table class="center">
+                    <tr class="head">
+                        <th class="subhead"> Product title </th>
+                        <th class="subhead"> Description </th>
+                        <th class="subhead">Quantity </th>
+                        <th class="subhead"> Category </th>
+                        <th class="subhead">Price </th>
+                        <th class="subhead"> discount </th>
+                        <th class="subhead"> image </th>
+              @foreach($product as $product)
                     <tr>
-                        <th> Product title </th>
-                        <th> Description </th>
-                        <th>Quantity </th>
-                        <th> Quantity </th>
-                        <th>Category </th>
-                        <th> Price </th>
-                        <th> Discount price </th>
-                        <th>  product image </th>
-
+                        <td>{{$product->title}}</td>
+                        <td>{{$product->description}}</td>
+                        <td>{{$product->quantity}}</td>
+                        <td>{{$product->category}}</td>
+                        <td>{{$product->price}}</td>
+                        <td>{{$product->discount_price}}</td>
+                        <td>
+                          <img class="img" src="/product/{{$product->image}}">
+                        </td>
                     </tr>
-                    <tr>
-                        <td>toy</td>
-                        <td>good</td>
-                        <td>10</td>
-                        <td>toy</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+              @endforeach
                 </table>
+            </center>
             </div>
             </div>
     <!-- container-scroller -->
