@@ -40,6 +40,22 @@
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
+            @if(session()->has('message'))
+                <div id="myAlert" class="alert alert-success">
+                    
+                    {{session()->get('message')}}
+                </div>
+                <script>
+                    function closeAlert() {
+                        document.getElementById('myAlert').style.display = 'none';
+                    }
+
+                    // Automatically close after 3 seconds (adjust the delay as needed)
+                    setTimeout(function() {
+                        closeAlert();
+                    }, 5000);
+                </script>
+                @endif
              
               <center>
               <h2>All Products</h2>
@@ -65,8 +81,19 @@
                         <td>
                           <img class="img" src="/product/{{$product->image}}">
                         </td>
-                        <td href="" class="btn btn-danger">Delete</td>
-                        <td href="" class="btn btn-success">Edit</td>
+                        <td >
+                          <a  class="btn btn-danger" onclick="return confirm('Are you sure to delete this ')"
+                           href="{{url('delete_product',$product->id)}}" 
+                        
+                       >
+                          Delete
+                        </a>
+                        </td>
+
+                        <td >
+                          <a href="{{url('update_product',$product->id)}}" 
+                        class="btn btn-success">Edit</a>
+                      </td>
                     </tr>
               @endforeach
                 </table>

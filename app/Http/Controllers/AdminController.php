@@ -38,7 +38,7 @@ class AdminController extends Controller
         $product->description=$request->description;
         $product->price=$request->price;
         $product->quantity=$request->quantity;
-        $product->discount_price=$request->dis_price;
+        $product->discount_price=$request->discount_price;
         $product->category=$request->dis_price;
         $image=$request->image;
         $imagename=time().'.'.$image->getClientOriginalExtension();
@@ -53,5 +53,44 @@ class AdminController extends Controller
     public function show_product(){
         $product=product::all();
        return view('admin.show_product',compact('product'));
+    }
+
+    public function delete_product($id){
+       $product=product::find($id);
+       $product->delete();
+       return redirect()->back()->with('message','product deleted Successfully');
+    }
+
+    public function update_product($id){
+        $product=product::find($id);
+        $category=category::all();
+        return view('admin.update_product',compact('product','category'));
+    }
+
+    public function update_product_confirm(Request $request, $id){
+        $product=product::find($id);
+        $product->title=$request->title;
+        $product->description=$request->description;
+        $product->price=$request->price;
+        $product->discount_price=$request->discount_price;
+        $product->category=$request->category;
+        $product->quantity=$request->quantity;
+        $product->quantity=$request->quantity;
+
+
+        $image=$request->image;
+        if($image){
+        $imagename=time().'.'.$image->getClientOriginalExtension();
+        //store image akain law folderaya ka naw product imagekan tya
+        $request->image->move('product',$imagename);
+        $product->image=$imagename;
+        }
+
+        
+        $product->save();
+        return redirect()->back()->with('message','product updated Successfully');
+
+        
+ 
     }
 }

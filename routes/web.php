@@ -31,12 +31,20 @@ Route::middleware(['auth:sanctum','verified'])->get('/dashboard', function () {
         })->name('dashboard');
 
 route::get('/redirect',[HomeController::class,'redirect']);
+
 route::get('/view_category',[AdminController::class,'view_category']);
 route::post('/add_category',[AdminController::class,'add_category']);
 route::get('/delete_category/{id}', [AdminController::class, 'delete_category']);
+
 route::get('/view_product',[AdminController::class,'view_product']);
 route::post('/add_product',[AdminController::class,'add_product']);
 route::get('/show_product',[AdminController::class,'show_product']);
 
+//bo chon bo page update
+route::get('/update_product/{id}',[AdminController::class,'update_product']);
+//updatey productkat waragret
+route::post('/update_product_confirm/{id}',[AdminController::class,'update_product_confirm']);
+
+route::get('/delete_product/{id}',[AdminController::class,'delete_product']);
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
