@@ -10,7 +10,7 @@
         text-align:center;
         padding-top:10%;
         margin-top:2%;
-        width:87%;
+        width:93%;
       }
       .img{
         width:150px;
@@ -21,7 +21,7 @@
         
       }
       .subhead{
-        padding: 2%;
+        padding: 1%;
         margin-bottom:3%;
       }
     </style>
@@ -52,6 +52,8 @@
                         <th class="subhead">Price </th>
                         <th class="subhead"> discount </th>
                         <th class="subhead"> image </th>
+                        <th class="subhead">Delete</th>
+                        <th class="subhead ">Edit</th>
               @foreach($product as $product)
                     <tr>
                         <td>{{$product->title}}</td>
@@ -63,6 +65,8 @@
                         <td>
                           <img class="img" src="/product/{{$product->image}}">
                         </td>
+                        <td href="" class="btn btn-danger">Delete</td>
+                        <td href="" class="btn btn-success">Edit</td>
                     </tr>
               @endforeach
                 </table>
