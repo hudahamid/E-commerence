@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Cart;
 
 class HomeController extends Controller
 {
 
     public function index(){
-        return view('home.userpage');
+        $product=product::paginate(6);
+        return view('home.userpage',compact('product'));
     }
     public function redirect(){
      
@@ -18,7 +21,36 @@ class HomeController extends Controller
             return view('admin.home');  
         }
         else{
-            return view('home.userpage');
+            $product=product::paginate(6);
+            return view('home.userpage',compact('product'));
+        }
+    }
+
+    public function product_details($id){
+        $product=product::find($id);
+        return view('home.product_details',compact('product'));
+    }
+
+    public function add_cart(Request $request,$id){
+        if(Auth::id()){
+           $user=Auth::user();
+           $product=product::find($id);
+           $cart=new cart;
+           $cart->name=$user->name;
+           $cart->email=$user->email;
+           $cart->phone=$user->phone;
+           $cart->address=$user->address;
+           $cart->user_id=$user->id;
+
+           $cart->product_title=$product->title;
+           $cart->price=$product->price;
+           $cart->image=$product->title;
+           $cart->product_title=$product->image;
+           $cart->product_id=$product->id;
+           
+        }
+        else{
+            return redirect('login');  
         }
     }
 }
