@@ -49,6 +49,7 @@ route::get('/delete_product/{id}',[AdminController::class,'delete_product']);
 route::get('/product_details/{id}',[HomeController::class,'product_details']);
 
 route::post('/add_cart/{id}',[HomeController::class,'add_cart']);
+route::get('/show_cart',[HomeController::class,'show_cart']);
 
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
