@@ -57,6 +57,23 @@
          <!-- header section strats -->
          @include('home.header')
          <!-- end header section -->
+
+         @if(session()->has('message'))
+                <div id="myAlert" class="alert alert-success">
+                    
+                    {{session()->get('message')}}
+                </div>
+                <script>
+                    function closeAlert() {
+                        document.getElementById('myAlert').style.display = 'none';
+                    }
+
+                    // Automatically close after 3 seconds (adjust the delay as needed)
+                    setTimeout(function() {
+                        closeAlert();
+                    }, 5000);
+                </script>
+                @endif
        
      <center>
      <div class="centerr">
@@ -104,6 +121,12 @@
          </table>
       <div>
          <h1 class="totalPrice"> Total Price : {{$totalPrice}}$</h1>
+      </div>
+
+      <div>
+         <h1 style="font: size 25px; padding: bottom 15px;"> Proced to order</h1>
+         <a href="{{url('cash_order')}}" class="btn btn-danger">Cash on Delivery</a>
+         <a href="" class="btn btn-danger">Pay using Card</a>
       </div>
 
      </div>
