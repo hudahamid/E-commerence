@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
+use Session;
+use Stripe;
 
 class HomeController extends Controller
 {
@@ -15,8 +17,8 @@ class HomeController extends Controller
         $product=product::paginate(6);
         return view('home.userpage',compact('product'));
     }
-    public function redirect(){
-     
+    
+    public function redirect(){    
         $usertype=Auth::user()->usertype;
         if($usertype=='1'){
             return view('admin.home');  
@@ -86,7 +88,8 @@ class HomeController extends Controller
         return redirect()->back()->with('message','product deleted Successfully');
     }
 
-    public function cash_order(){
+    public function cash_order()
+    {
     
         $user=Auth::user();
         $userid = $user->id;
@@ -122,4 +125,58 @@ class HomeController extends Controller
         }
         return redirect()->back()->with('message',' your order is recieved ');
     }
+
+    public function stripe($totalPrice){
+        return view('home.stripe',compact('totalPrice'));
+}
+
+public function stripePost(Request $request,$totalPrice)
+    {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+    
+        Stripe\Charge::create ([
+                "amount" => $totalPrice * 100,
+                "currency" => "usd",
+                "source" => $request->stripeToken,
+                "description" => "Thanks for payment." 
+        ]);
+        
+        $user=Auth::user();
+        $userid = $user->id;
+        $data=cart::where('user_id','=',$userid)->get();
+
+        foreach($data as$data){
+
+            $order=new order;
+            $order->name=$data->name;
+            $order->email=$data->email;
+            $order->phone=$data->phone;
+            $order->address=$data->address;
+            $order->user_id=$data->user_id;
+
+            $order->product_title=$data->product_title;
+            $order->price=$data->price;
+            $order->quantity=$data->quantity;
+            $order->image=$data->image;
+            $order->product_id=$data->product_id;
+
+            $order->payment_status='paid';
+            $order->delivery_status=' processing ';
+
+            $order->save();
+
+           
+
+            $cart_id = $data->id;
+              $cart = Cart::find($cart_id);
+             $cart->delete();
+
+
+        }
+
+        Session::flash('success', 'Payment successful!');
+              
+        return back();
+    }
+
 }

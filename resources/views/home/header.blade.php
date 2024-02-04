@@ -1,3 +1,10 @@
+<style type="text/css">
+custom-btn {
+    padding: 3% 10% 3% 6%; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    line-height: 1.5; /* Adjust line height as needed */
+}
+</style>
 <header class="header_section">
             <div class="container">
                <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -33,7 +40,7 @@
                         {{-- @if (Route::has('login')) --}}
                         @auth
                         <li class="nav-item">
-                           <a class="btn btn-primary" href="{{ route('logout') }}">logout</a>
+                           <a class="btn btn-primary  custom-btn" href="{{ route('logout') }}">logout</a>
                         
     
                           

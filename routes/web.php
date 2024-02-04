@@ -53,6 +53,8 @@ route::get('/show_cart',[HomeController::class,'show_cart']);
 Route::get('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name('remove_cart');
 
 route::get('/cash_order',[HomeController::class,'cash_order']);
+route::get('/stripe/{totalPrice}',[HomeController::class,'stripe']);
+Route::post('stripe/{totalPrice}', [HomeController::class,'stripePost'])->name('stripe.post');
 
 
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])

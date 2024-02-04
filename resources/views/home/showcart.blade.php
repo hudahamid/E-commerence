@@ -2,6 +2,7 @@
 <html>
    <head>
       <!-- Basic -->
+      
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <!-- Mobile Metas -->
@@ -126,7 +127,7 @@
       <div>
          <h1 style="font: size 25px; padding: bottom 15px;"> Proced to order</h1>
          <a href="{{url('cash_order')}}" class="btn btn-danger">Cash on Delivery</a>
-         <a href="" class="btn btn-danger">Pay using Card</a>
+         <a href="{{url('stripe',$totalPrice)}}" class="btn btn-danger">Pay using Card</a>
       </div>
 
      </div>
